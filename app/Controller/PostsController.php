@@ -1,8 +1,10 @@
 <?php
 class PostsController extends AppController {
 	public $helpers = array('Html', 'Form');
-	public $components = array('Session');
-	
+	public $components = array('Session','AuthorizeNet');
+	private $uploaddir = '/var/www/uploads/';
+
+	private $loginid = '92bWp7QP', $transkey = '42pV89bv9VG5F2wA';
 
 	public function index() {
 		$this->set('posts',$this->Post->find('all'));	
@@ -40,8 +42,16 @@ class PostsController extends AppController {
 		}
 	}
 
+	public function authorize() {
+		$this->AuthorizeNet->merchant($this->loginid,$this->transkey);
+		$response = $this->AuthorizeNet->transaction('9.99','4007000000027', '10/16');
+		if($response->approved) {
+			$this->message('Test credit card has been charged.');
+		} else {
+			$this->message($response->error_message);
+		}
+	}
 	// Helper functions
-	private $uploaddir = '/var/www/uploads/';
 
 	private function message($text){
 		$this->Session->setFlash($text);
