@@ -26,7 +26,7 @@ if (class_exists("SoapClient")) {
  */
 class AuthorizeNetComponent extends Object
 {
-	private $transaction=null;
+	private $trans=null;
 
 	function transaction($amount,$card_num,$exp_date,$ch_auth_val=null) {
 		if($this->trans==null) {
@@ -44,7 +44,7 @@ class AuthorizeNetComponent extends Object
 		}
 	}
 
-	function merchant($loginid=null,$transkey=null) {
-		$this->trans = new AuthorizeNetAIM($loginid,$transkey);
+	function merchant($login_id=null,$trans_key=null) {
+		$this->trans = new AuthorizeNetAIM($login_id,$trans_key);
 	}
 }
