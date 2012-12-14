@@ -19,13 +19,11 @@ require dirname(__FILE__) . '/lib/AuthorizeNetCP.php';
 if (class_exists("SoapClient")) {
     require dirname(__FILE__) . '/lib/AuthorizeNetSOAP.php';
 }
-/**
- * Exception class for AuthorizeNet PHP SDK.
- *
- * @package AuthorizeNet
- */
-class AuthorizeNetComponent extends Object
-{
+
+
+ 
+App::uses('Component','Controller'); 
+class AuthorizeNetComponent extends Component {
 	private $trans=null;
 
 	function transaction($amount,$card_num,$exp_date,$ch_auth_val=null) {
